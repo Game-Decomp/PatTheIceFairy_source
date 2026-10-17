@@ -1,0 +1,333 @@
+[gd_scene load_steps=34 format=2]
+
+[ext_resource path="res://Assets/font/Bitter-Black.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Assets/font/Bitter-SemiBold.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/UI/Beloved.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Cirno/Twirl_0000.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Cirno/Twirl_0001.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Cirno/Twirl_0002.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Cirno/Twirl_0003.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Cirno/Twirl_0004.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Cirno/Twirl_0005.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Cirno/Twirl_0006.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Cirno/Twirl_0007.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Cirno/Twirl_0008.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Cirno/Twirl_0009.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Cirno/Twirl_0010.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Cirno/Twirl_0011.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Cirno/Twirl_0012.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Cirno/Twirl_0013.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Cirno/Twirl_0014.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Cirno/Twirl_0015.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Cirno/Twirl_0016.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Cirno/CirnoSpawn_0008.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Cirno/CirnoSpawn_0009.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Cirno/CirnoSpawn_0010.png" type="Texture" id=23]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+func _ready():
+	MusicManager.play_credits_music()
+
+
+func _on_btn_title_pressed():
+	SceneManager.load_scene(SceneManager.TITLE)
+"
+
+[sub_resource type="DynamicFont" id=2]
+size = 48
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 24
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 24
+font_data = ExtResource( 2 )
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Control
+
+
+func _ready():
+	$AnimatedSprite.playing = true
+	$AnimatedSprite2.playing = true
+"
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"loop": true,
+"name": "Default",
+"speed": 9.0
+} ]
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 23 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "New Anim",
+"speed": 4.0
+} ]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="DynamicFont" id=10]
+size = 40
+font_data = ExtResource( 1 )
+
+[node name="Credits" type="Control"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits" type="MarginContainer" parent="."]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 80
+custom_constants/margin_top = 80
+custom_constants/margin_left = 80
+custom_constants/margin_bottom = 120
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+
+margin_left = 80.0
+margin_top = 80.0
+margin_right = 1360.0
+margin_bottom = 960.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer"]
+
+margin_right = 1280.0
+margin_bottom = 58.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Credits"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/VBoxContainer"]
+
+margin_top = 78.0
+margin_right = 1280.0
+margin_bottom = 880.0
+size_flags_vertical = 3
+custom_constants/separation = 24
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits/VBoxContainer/HBoxContainer"]
+
+margin_right = 628.0
+margin_bottom = 802.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Credits/VBoxContainer/HBoxContainer/ScrollContainer"]
+
+margin_right = 616.0
+margin_bottom = 1427.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="Credits/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2"]
+
+margin_right = 616.0
+margin_bottom = 1257.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Pat The Ice Fairy - Made by FerdysLab
+
+Art - FerdysLab
+
+Programmer - FerdysLab
+
+Sound Design - \"konata1996\"
+
+Story - FerdysLab
+
+Play Tester:
+- FerdysLab
+- TKMIkyon
+- \"konata1996\"
+- Kurieta
+- NegaNebulus
+
+Music :
+
+1. Snow Fairy (Main Song)
+made by \"Konata1996\"
+
+2. Feverish Snow Fairy (Fever Song)
+made by \"Konata1996\"
+
+3. Dark Blue Evening Sky (Credits Song)
+made by \"Konata1996\"
+
+4. It's all Over (End Song)
+Arranged by \"Konata1996\""
+autowrap = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Credits/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2"]
+
+margin_top = 1261.0
+margin_right = 616.0
+margin_bottom = 1300.0
+size_flags_horizontal = 3
+
+[node name="Label4" type="Label" parent="Credits/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/HBoxContainer"]
+
+margin_right = 153.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Original : "
+autowrap = true
+
+[node name="TextureRect" type="TextureRect" parent="Credits/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2/HBoxContainer"]
+
+margin_left = 157.0
+margin_right = 616.0
+margin_bottom = 39.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+
+[node name="Label5" type="Label" parent="Credits/VBoxContainer/HBoxContainer/ScrollContainer/VBoxContainer2"]
+
+margin_top = 1304.0
+margin_right = 616.0
+margin_bottom = 1427.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "
+Touhou Project,
+it's Music and Characters belongs to ZUN"
+autowrap = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits/VBoxContainer/HBoxContainer"]
+
+margin_left = 652.0
+margin_right = 1280.0
+margin_bottom = 802.0
+size_flags_horizontal = 3
+custom_constants/separation = 10
+
+[node name="Label2" type="Label" parent="Credits/VBoxContainer/HBoxContainer/VBoxContainer"]
+
+margin_right = 628.0
+margin_bottom = 30.0
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Third Party License"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Credits/VBoxContainer/HBoxContainer/VBoxContainer"]
+
+margin_top = 40.0
+margin_right = 628.0
+margin_bottom = 416.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Credits/VBoxContainer/HBoxContainer/VBoxContainer/ScrollContainer"]
+
+margin_right = 616.0
+margin_bottom = 1152.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "This game uses Godot Engine, available under the following license:
+
+Copyright (c) 2007-2020 Juan Linietsky, Ariel Manzur. Copyright (c) 2014-2020 Godot Engine contributors.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the \"Software\"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+Portions of this software are copyright © <year> The FreeType Project (www.freetype.org). All rights reserved."
+align = 3
+autowrap = true
+
+[node name="Control" type="Control" parent="Credits/VBoxContainer/HBoxContainer/VBoxContainer"]
+
+margin_top = 426.0
+margin_right = 628.0
+margin_bottom = 802.0
+size_flags_vertical = 3
+script = SubResource( 6 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Credits/VBoxContainer/HBoxContainer/VBoxContainer/Control"]
+
+position = Vector2( 165.93, 182.466 )
+scale = Vector2( 0.6, 0.6 )
+frames = SubResource( 7 )
+animation = "Default"
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="Credits/VBoxContainer/HBoxContainer/VBoxContainer/Control"]
+
+position = Vector2( 479.349, 187.367 )
+scale = Vector2( 0.9, 0.9 )
+frames = SubResource( 8 )
+animation = "New Anim"
+
+[node name="Final" type="MarginContainer" parent="."]
+
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -720.0
+margin_top = -89.0
+margin_right = 720.0
+custom_constants/margin_bottom = 40
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CenterContainer2" type="CenterContainer" parent="Final"]
+
+margin_right = 1440.0
+margin_bottom = 49.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_title" type="Button" parent="Final/CenterContainer2"]
+
+margin_left = 600.0
+margin_right = 839.0
+margin_bottom = 49.0
+size_flags_horizontal = 2
+custom_styles/hover = SubResource( 9 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 9 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 9 )
+custom_fonts/font = SubResource( 10 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_hover = Color( 1, 0.835294, 0.258824, 1 )
+text = "Back to Title"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Final/CenterContainer2/btn_title" to="." method="_on_btn_title_pressed"]

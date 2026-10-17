@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/dark_backdrop.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/UI/Credits_Text.tscn" type="PackedScene" id=3]
+
+[node name="Credits_Scene" type="HBoxContainer"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+
+margin_bottom = 1080.0
+size_flags_horizontal = 2
+
+[node name="Content" type="Control" parent="."]
+
+margin_right = 1440.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1440, 1080 )
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Content"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Credits" parent="Content" instance=ExtResource( 3 )]
+
+[node name="Control3" type="Control" parent="."]
+
+margin_left = 1440.0
+margin_right = 1440.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3

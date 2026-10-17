@@ -1,0 +1,199 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/UI/Score.gd" type="Script" id=2]
+[ext_resource path="res://Assets/dark_backdrop.png" type="Texture" id=3]
+[ext_resource path="res://Assets/font/Bitter-Black.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/sfx/click.wav" type="AudioStream" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 92
+font_data = ExtResource( 4 )
+
+[node name="Score" type="HBoxContainer"]
+
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+custom_constants/separation = 0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+
+margin_bottom = 1080.0
+size_flags_horizontal = 2
+
+[node name="Content" type="Control" parent="."]
+
+margin_right = 1440.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1440, 1080 )
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Content"]
+
+margin_right = 1440.0
+margin_bottom = 1080.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="Content"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1440, 0 )
+custom_constants/margin_right = 100
+custom_constants/margin_top = 100
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 150
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/MarginContainer"]
+
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 1340.0
+margin_bottom = 930.0
+
+[node name="lbl_high" type="Label" parent="Content/MarginContainer/VBoxContainer"]
+
+margin_top = 14.0
+margin_right = 1240.0
+margin_bottom = 126.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "High Score :"
+align = 1
+
+[node name="lbl_high_value" type="Label" parent="Content/MarginContainer/VBoxContainer"]
+
+margin_top = 158.0
+margin_right = 1240.0
+margin_bottom = 270.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "123,320"
+align = 1
+
+[node name="lbl_final" type="Label" parent="Content/MarginContainer/VBoxContainer"]
+
+margin_top = 302.0
+margin_right = 1240.0
+margin_bottom = 414.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Final Score :"
+align = 1
+
+[node name="lbl_score" type="Label" parent="Content/MarginContainer/VBoxContainer"]
+
+margin_top = 447.0
+margin_right = 1240.0
+margin_bottom = 559.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "123,320"
+align = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Content/MarginContainer/VBoxContainer"]
+
+margin_top = 577.0
+margin_right = 1240.0
+margin_bottom = 717.0
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Content/MarginContainer/VBoxContainer/CenterContainer"]
+
+margin_left = 170.0
+margin_top = 41.0
+margin_right = 1070.0
+margin_bottom = 99.0
+custom_colors/font_color = Color( 1, 0.870588, 0.423529, 1 )
+text = "Activate Fever mode  to unlock Ending!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/MarginContainer/VBoxContainer"]
+
+margin_top = 721.0
+margin_right = 1240.0
+margin_bottom = 829.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_retry" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_right = 280.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 2
+action_mode = 0
+text = "Retry"
+
+[node name="btn_ending" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 480.0
+margin_right = 760.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 2
+disabled = true
+action_mode = 0
+text = "Ending"
+
+[node name="btn_title" type="Button" parent="Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 960.0
+margin_right = 1240.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 0
+shortcut_in_tooltip = false
+action_mode = 0
+text = "Title"
+
+[node name="lbl_new_high" type="Label" parent="Content"]
+
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -627.117
+margin_top = 47.7164
+margin_right = -255.117
+margin_bottom = 105.716
+rect_rotation = 12.7768
+size_flags_horizontal = 0
+size_flags_vertical = 0
+custom_colors/font_color = Color( 1, 0.862745, 0.458824, 1 )
+text = "New HighScore!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control3" type="Control" parent="."]
+
+margin_left = 1440.0
+margin_right = 1440.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 5 )
+volume_db = -9.0
+bus = "Sound"
+
+[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/btn_retry" to="." method="_on_btn_retry_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/btn_ending" to="." method="_on_btn_ending_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/HBoxContainer/btn_title" to="." method="_on_btn_title_pressed"]

@@ -1,0 +1,519 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://Scenes/Ending/Opening.gd" type="Script" id=1]
+[ext_resource path="res://default_theme.tres" type="Theme" id=2]
+[ext_resource path="res://Assets/dark_backdrop.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Ending/Ending_0000.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Ending/emote3.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Ending/emote.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Ending/emote2.png" type="Texture" id=7]
+[ext_resource path="res://Assets/sfx/screen_door1.mp3" type="AudioStream" id=8]
+[ext_resource path="res://Assets/sfx/screen_door2.mp3" type="AudioStream" id=9]
+[ext_resource path="res://Assets/sfx/cardboard.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/sfx/sip2.wav" type="AudioStream" id=11]
+[ext_resource path="res://Assets/sfx/knock.wav" type="AudioStream" id=12]
+[ext_resource path="res://Assets/sfx/box_open.wav" type="AudioStream" id=13]
+
+[sub_resource type="AtlasTexture" id=1]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 37, 45, 394, 454 )
+
+[sub_resource type="AtlasTexture" id=2]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 470, 45, 211, 218 )
+
+[sub_resource type="AtlasTexture" id=3]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 470, 304, 211, 195 )
+
+[sub_resource type="AtlasTexture" id=4]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 709, 45, 236, 454 )
+
+[sub_resource type="AtlasTexture" id=5]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 995, 45, 407, 454 )
+
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 37, 559, 908, 487 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 4 )
+region = Rect2( 995, 559, 407, 487 )
+
+[sub_resource type="Animation" id=8]
+resource_name = "opening"
+length = 15.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer/TextureRect5:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5.4, 6.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TextureRect3:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3.6, 4.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TextureRect2:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 4.4, 4.9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer/TextureRect4:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2.5, 3.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer/TextureRect3:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect5:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 12, 13 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 8, 8.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("UI/Content/MarginContainer:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath(".")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 15 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "play_intro_music"
+}, {
+"args": [  ],
+"method": "go_to_title"
+} ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3/emote:modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 9, 9.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3/emote2:modulate")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 10, 10.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3/emote3:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 11, 11.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("ScreenDoorOpen:playing")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 4.5, 5.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("ScreenDoorClosed:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 5.6, 6.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("BoxShake:playing")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 10, 12.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("SipSound:playing")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 1.2, 2.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/16/type = "value"
+tracks/16/path = NodePath("KnockSound:playing")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/keys = {
+"times": PoolRealArray( 2.5, 3.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/17/type = "value"
+tracks/17/path = NodePath("BoxOpen:playing")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/keys = {
+"times": PoolRealArray( 12.3, 13.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Opening" type="Node"]
+
+script = ExtResource( 1 )
+
+[node name="UI" type="HBoxContainer" parent="."]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="UI"]
+
+margin_bottom = 1080.0
+size_flags_horizontal = 2
+
+[node name="Content" type="Control" parent="UI"]
+
+margin_right = 1440.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1440, 1080 )
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/Content"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Content"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 45
+custom_constants/margin_top = 45
+custom_constants/margin_left = 45
+custom_constants/margin_bottom = 45
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Content/MarginContainer"]
+
+margin_left = 45.0
+margin_top = 45.0
+margin_right = 1395.0
+margin_bottom = 1035.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Content/MarginContainer/VBoxContainer"]
+
+margin_right = 1350.0
+margin_bottom = 454.0
+custom_constants/separation = 0
+
+[node name="TextureRect5" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_right = 394.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+texture = SubResource( 1 )
+
+[node name="Control" type="Control" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 394.0
+margin_right = 394.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 428.0
+margin_right = 639.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+
+[node name="TextureRect3" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+
+margin_right = 211.0
+margin_bottom = 218.0
+size_flags_vertical = 2
+texture = SubResource( 2 )
+
+[node name="TextureRect2" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+
+margin_top = 259.0
+margin_right = 211.0
+margin_bottom = 454.0
+texture = SubResource( 3 )
+
+[node name="Control2" type="Control" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 639.0
+margin_right = 639.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect4" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 673.0
+margin_right = 909.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+texture = SubResource( 4 )
+
+[node name="emote3" type="Sprite" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer/TextureRect4"]
+
+position = Vector2( 129.188, 170.547 )
+texture = ExtResource( 5 )
+
+[node name="Control3" type="Control" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 909.0
+margin_right = 909.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer"]
+
+margin_left = 943.0
+margin_right = 1350.0
+margin_bottom = 454.0
+size_flags_horizontal = 2
+texture = SubResource( 5 )
+
+[node name="Control4" type="Control" parent="UI/Content/MarginContainer/VBoxContainer"]
+
+margin_top = 458.0
+margin_bottom = 458.0
+size_flags_horizontal = 0
+size_flags_vertical = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/Content/MarginContainer/VBoxContainer"]
+
+margin_top = 503.0
+margin_right = 1350.0
+margin_bottom = 990.0
+custom_constants/separation = 0
+
+[node name="TextureRect5" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer2"]
+
+margin_right = 908.0
+margin_bottom = 487.0
+size_flags_horizontal = 2
+texture = SubResource( 6 )
+
+[node name="Control" type="Control" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer2"]
+
+margin_left = 908.0
+margin_right = 908.0
+margin_bottom = 487.0
+size_flags_horizontal = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer2"]
+
+margin_left = 943.0
+margin_right = 1350.0
+margin_bottom = 487.0
+size_flags_horizontal = 2
+texture = SubResource( 7 )
+
+[node name="emote" type="Sprite" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3"]
+
+position = Vector2( 248.384, 71.3024 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 7, 12, 77, 98 )
+
+[node name="emote2" type="Sprite" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3"]
+
+position = Vector2( 281.539, 347.596 )
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 168, 50 )
+
+[node name="emote3" type="Sprite" parent="UI/Content/MarginContainer/VBoxContainer/HBoxContainer2/TextureRect3"]
+
+position = Vector2( 280.204, 113.022 )
+texture = ExtResource( 6 )
+region_enabled = true
+region_rect = Rect2( 95, 25, 68, 72 )
+
+[node name="Control3" type="Control" parent="UI"]
+
+margin_left = 1440.0
+margin_right = 1440.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+autoplay = "opening"
+anims/opening = SubResource( 8 )
+
+[node name="ScreenDoorOpen" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 8 )
+bus = "Sound"
+
+[node name="ScreenDoorClosed" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 9 )
+bus = "Sound"
+
+[node name="BoxShake" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 10 )
+bus = "Sound"
+
+[node name="SipSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 11 )
+volume_db = 6.0
+bus = "Sound"
+
+[node name="KnockSound" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 12 )
+volume_db = -1.962
+
+[node name="BoxOpen" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 13 )
+bus = "Sound"

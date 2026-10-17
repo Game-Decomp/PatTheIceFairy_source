@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/putting_a_box.mp3-3f4341136e05e79ed62921ecd4bd35be.mp3str"
+
+[deps]
+
+source_file="res://Assets/sfx/putting_a_box.mp3"
+dest_files=[ "res://.import/putting_a_box.mp3-3f4341136e05e79ed62921ecd4bd35be.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

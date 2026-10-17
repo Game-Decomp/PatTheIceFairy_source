@@ -1,0 +1,706 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/UI/Title.gd" type="Script" id=2]
+[ext_resource path="res://Assets/SnowBg.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/title.png" type="Texture" id=4]
+[ext_resource path="res://Assets/font/Bitter-Black.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/font/Bitter-SemiBold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Assets/sfx/click.wav" type="AudioStream" id=7]
+[ext_resource path="res://Assets/UI/btn_blue_minus_normal.png" type="Texture" id=8]
+[ext_resource path="res://Assets/UI/btn_blue_minus_pressed.png" type="Texture" id=9]
+[ext_resource path="res://Assets/UI/btn_blue_plus_normal.png" type="Texture" id=10]
+[ext_resource path="res://Assets/UI/btn_blue_plus_pressed.png" type="Texture" id=11]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var cirno_scene = preload(\"res://Scenes/Game/Cirno.tscn\")
+
+const default_spawn_range = Rect2(150, 500, 1150, 200)
+var spawn_range = default_spawn_range
+
+var total = 1
+
+func _ready():
+	randomize()
+
+
+func spawn_cirno():
+	var cirno = cirno_scene.instance()
+	cirno.global_position = Vector2(
+		rand_range(spawn_range.position.x, spawn_range.end.x),
+		rand_range(spawn_range.position.y, spawn_range.end.y)
+	)
+	cirno.is_infinite_headpat = true
+	$YSort.add_child(cirno)
+
+
+func _on_Timer_timeout():
+	if total < 9:
+		spawn_cirno()
+		total += 1
+	
+	$SpawnTimer.start(rand_range(5, 10))
+
+
+func _on_DespawnTimer_timeout():
+	if total > 0:
+		var cirno = $YSort.get_child(randi() % total)
+		if not cirno.state in [cirno.SPAWN, cirno.ESCAPE]:
+			cirno.state = 4
+			total -= 1
+	
+	$DespawnTimer.start(rand_range(6, 12))
+
+
+func _on_InitTimer_timeout():
+	var cirno = cirno_scene.instance()
+	cirno.global_position = Vector2(720, 650)
+	cirno.is_infinite_headpat = true
+	$YSort.add_child(cirno)
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+func _process(delta):
+	global_position = get_global_mouse_position()
+"
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 1.0
+
+[sub_resource type="GDScript" id=4]
+script/source = "extends Control
+
+func _ready():
+	show()
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends VBoxContainer
+
+onready var clickSoundPlayer = $ClickSoundPlayer
+onready var btn_easy = $HBoxContainer/btn_easy
+onready var btn_normal = $HBoxContainer/btn_normal
+onready var btn_hard = $HBoxContainer/btn_hard
+onready var tooltip = $lbl_tooltip
+
+func _ready():
+	hide()
+
+
+func _process(delta):
+	var message = \"%s : Fever mode requires %s Headpats\"
+	
+	tooltip.modulate = Color(1, 1, 1, 1)
+	
+	if btn_easy.is_hovered():
+		tooltip.text = message % [\"Easy\", \"39\"]
+	elif btn_normal.is_hovered():
+		tooltip.text = message % [\"Normal\", \"69\"]
+	elif btn_hard.is_hovered():
+		tooltip.text = message % [\"Hard\", \"99\"]
+	else:
+		tooltip.modulate = Color(1, 1, 1, 0)
+
+
+func _on_btn_easy_pressed():
+	Globals.difficulty = Globals.EASY
+	clickSoundPlayer.play()
+	load_game()
+
+
+func _on_btn_normal_pressed():
+	Globals.difficulty = Globals.NORMAL
+	clickSoundPlayer.play()
+	load_game()
+
+
+func _on_btn_hard_pressed():
+	Globals.difficulty = Globals.HARD
+	clickSoundPlayer.play()
+	load_game()
+
+
+func load_game():
+	get_tree().paused = true
+	SceneManager.load_scene(SceneManager.GAME)
+"
+
+[sub_resource type="DynamicFont" id=6]
+size = 72
+outline_size = 5
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+outline_size = 5
+font_data = ExtResource( 6 )
+
+[sub_resource type="GDScript" id=8]
+script/source = "extends Control
+
+onready var clickSoundPlayer = $ClickSoundPlayer
+
+onready var lbl_master_value = $GridContainer/lbl_Master_value
+onready var lbl_music_value = $GridContainer/lbl_Music_value
+onready var lbl_sound_value = $GridContainer/lbl_Sound_value
+
+func _ready():
+	hide()
+
+
+func _process(delta):
+	lbl_master_value.text = str(AudioManager.master_volume)
+	lbl_music_value.text = str(AudioManager.music_volume)
+	lbl_sound_value.text = str(AudioManager.sound_volume)
+
+
+func _on_btn_clear_save_pressed():
+	Globals.high_score = 0
+	Globals.save()
+	clickSoundPlayer.play()
+
+
+func _on_btn_master_minus_pressed():
+	AudioManager.master_volume -= 5
+	clickSoundPlayer.play()
+
+
+func _on_btn_master_plus_pressed():
+	AudioManager.master_volume += 5
+	clickSoundPlayer.play()
+
+
+func _on_btn_music_minus_pressed():
+	AudioManager.music_volume -= 5
+	clickSoundPlayer.play()
+
+
+func _on_btn_music_plus_pressed():
+	AudioManager.music_volume += 5
+	clickSoundPlayer.play()
+
+
+func _on_btn_sound_minus_pressed():
+	AudioManager.sound_volume -= 5
+	clickSoundPlayer.play()
+
+
+func _on_btn_sound_plus_pressed():
+	AudioManager.sound_volume += 5
+	clickSoundPlayer.play()
+
+
+func _on_btn_fullscreen_toggle_pressed():
+	OS.window_fullscreen = $HBoxContainer/btn_fullscreen_toggle.pressed
+	clickSoundPlayer.play()
+"
+
+[sub_resource type="DynamicFont" id=9]
+size = 64
+outline_size = 5
+font_data = ExtResource( 5 )
+
+[sub_resource type="GDScript" id=10]
+script/source = "extends Button
+
+func _ready():
+	if OS.get_name() == \"HTML5\":
+		hide()
+	
+	pressed = OS.window_fullscreen
+"
+
+[node name="Title" type="HBoxContainer"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+custom_constants/separation = 0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+
+margin_bottom = 1080.0
+size_flags_horizontal = 2
+
+[node name="Content" type="Control" parent="."]
+
+margin_right = 1440.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1440, 1080 )
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="Content"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tease" type="Node2D" parent="Content"]
+
+pause_mode = 1
+script = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="Content/Tease"]
+
+position = Vector2( 720, 540 )
+current = true
+
+[node name="YSort" type="YSort" parent="Content/Tease"]
+
+[node name="Hand" type="Area2D" parent="Content/Tease"]
+
+collision_layer = 4
+collision_mask = 2
+script = SubResource( 2 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Content/Tease/Hand"]
+
+shape = SubResource( 3 )
+
+[node name="SpawnTimer" type="Timer" parent="Content/Tease"]
+
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="DespawnTimer" type="Timer" parent="Content/Tease"]
+
+wait_time = 12.0
+one_shot = true
+autostart = true
+
+[node name="InitTimer" type="Timer" parent="Content/Tease"]
+
+wait_time = 0.6
+one_shot = true
+autostart = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Content"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 1440, 0 )
+custom_constants/margin_right = 100
+custom_constants/margin_top = 100
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 150
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenu" type="VBoxContainer" parent="Content/MarginContainer"]
+
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 1340.0
+margin_bottom = 930.0
+script = SubResource( 4 )
+
+[node name="TextureRect" type="TextureRect" parent="Content/MarginContainer/MainMenu"]
+
+margin_right = 1240.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 0, 300 )
+size_flags_vertical = 2
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/MarginContainer/MainMenu"]
+
+margin_top = 722.0
+margin_right = 1240.0
+margin_bottom = 830.0
+custom_constants/separation = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_start" type="Button" parent="Content/MarginContainer/MainMenu/HBoxContainer"]
+
+margin_right = 280.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 2
+action_mode = 0
+text = "Start"
+
+[node name="btn_options" type="Button" parent="Content/MarginContainer/MainMenu/HBoxContainer"]
+
+margin_left = 320.0
+margin_right = 600.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 2
+shortcut_in_tooltip = false
+action_mode = 0
+text = "Options"
+
+[node name="btn_manual" type="Button" parent="Content/MarginContainer/MainMenu/HBoxContainer"]
+
+margin_left = 640.0
+margin_right = 920.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 2
+shortcut_in_tooltip = false
+action_mode = 0
+text = "Manual"
+
+[node name="btn_credits" type="Button" parent="Content/MarginContainer/MainMenu/HBoxContainer"]
+
+margin_left = 960.0
+margin_right = 1240.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 0
+shortcut_in_tooltip = false
+action_mode = 0
+text = "Credits"
+
+[node name="DifficultyMenu" type="VBoxContainer" parent="Content/MarginContainer"]
+
+visible = false
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 1340.0
+margin_bottom = 930.0
+script = SubResource( 5 )
+
+[node name="lbl_choose" type="Label" parent="Content/MarginContainer/DifficultyMenu"]
+
+margin_right = 1240.0
+margin_bottom = 245.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+custom_fonts/font = SubResource( 6 )
+text = "Choose Difficulty"
+align = 1
+valign = 1
+
+[node name="lbl_tooltip" type="Label" parent="Content/MarginContainer/DifficultyMenu"]
+
+margin_top = 249.0
+margin_right = 1240.0
+margin_bottom = 494.0
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.5
+custom_fonts/font = SubResource( 7 )
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/MarginContainer/DifficultyMenu"]
+
+margin_top = 498.0
+margin_right = 1240.0
+margin_bottom = 606.0
+size_flags_vertical = 2
+custom_constants/separation = 90
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="btn_easy" type="Button" parent="Content/MarginContainer/DifficultyMenu/HBoxContainer"]
+
+margin_left = 110.0
+margin_right = 390.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 0
+action_mode = 0
+text = "Easy"
+
+[node name="btn_normal" type="Button" parent="Content/MarginContainer/DifficultyMenu/HBoxContainer"]
+
+margin_left = 480.0
+margin_right = 760.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 0
+action_mode = 0
+text = "Normal"
+
+[node name="btn_hard" type="Button" parent="Content/MarginContainer/DifficultyMenu/HBoxContainer"]
+
+margin_left = 850.0
+margin_right = 1130.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 0
+action_mode = 0
+text = "Hard"
+
+[node name="btn_return" type="Button" parent="Content/MarginContainer/DifficultyMenu"]
+
+margin_left = 480.0
+margin_top = 666.0
+margin_right = 760.0
+margin_bottom = 774.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 2
+action_mode = 0
+text = "Return"
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="Content/MarginContainer/DifficultyMenu"]
+
+stream = ExtResource( 7 )
+bus = "Sound"
+
+[node name="OptionMenu" type="VBoxContainer" parent="Content/MarginContainer"]
+
+visible = false
+margin_left = 100.0
+margin_top = 100.0
+margin_right = 1340.0
+margin_bottom = 930.0
+custom_constants/separation = 80
+alignment = 1
+script = SubResource( 8 )
+
+[node name="GridContainer" type="GridContainer" parent="Content/MarginContainer/OptionMenu"]
+
+margin_left = 322.0
+margin_top = 77.0
+margin_right = 917.0
+margin_bottom = 377.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+custom_constants/vseparation = 15
+custom_constants/hseparation = 20
+columns = 4
+
+[node name="lbl_Master" type="Label" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_top = 6.0
+margin_right = 245.0
+margin_bottom = 83.0
+custom_fonts/font = SubResource( 9 )
+text = "Master :"
+
+[node name="btn_master_minus" type="TextureButton" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 265.0
+margin_right = 355.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 90, 90 )
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="lbl_Master_value" type="Label" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 375.0
+margin_top = 6.0
+margin_right = 485.0
+margin_bottom = 83.0
+rect_min_size = Vector2( 110, 0 )
+custom_fonts/font = SubResource( 9 )
+text = "100"
+align = 2
+
+[node name="btn_master_plus" type="TextureButton" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 505.0
+margin_right = 595.0
+margin_bottom = 90.0
+rect_min_size = Vector2( 90, 90 )
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="lbl_Music" type="Label" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_top = 111.0
+margin_right = 245.0
+margin_bottom = 188.0
+custom_fonts/font = SubResource( 9 )
+text = "Music :"
+
+[node name="btn_music_minus" type="TextureButton" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 265.0
+margin_top = 105.0
+margin_right = 355.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 90, 90 )
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="lbl_Music_value" type="Label" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 375.0
+margin_top = 111.0
+margin_right = 485.0
+margin_bottom = 188.0
+rect_min_size = Vector2( 110, 0 )
+custom_fonts/font = SubResource( 9 )
+text = "100"
+align = 2
+
+[node name="btn_music_plus" type="TextureButton" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 505.0
+margin_top = 105.0
+margin_right = 595.0
+margin_bottom = 195.0
+rect_min_size = Vector2( 90, 90 )
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="lbl_Sound" type="Label" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_top = 216.0
+margin_right = 245.0
+margin_bottom = 293.0
+custom_fonts/font = SubResource( 9 )
+text = "Sound :"
+
+[node name="btn_sound_minus" type="TextureButton" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 265.0
+margin_top = 210.0
+margin_right = 355.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 90, 90 )
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+expand = true
+stretch_mode = 5
+
+[node name="lbl_Sound_value" type="Label" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 375.0
+margin_top = 216.0
+margin_right = 485.0
+margin_bottom = 293.0
+rect_min_size = Vector2( 110, 0 )
+custom_fonts/font = SubResource( 9 )
+text = "100"
+align = 2
+
+[node name="btn_sound_plus" type="TextureButton" parent="Content/MarginContainer/OptionMenu/GridContainer"]
+
+margin_left = 505.0
+margin_top = 210.0
+margin_right = 595.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 90, 90 )
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
+expand = true
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Content/MarginContainer/OptionMenu"]
+
+margin_top = 457.0
+margin_right = 1240.0
+margin_bottom = 565.0
+size_flags_horizontal = 5
+custom_constants/separation = 100
+alignment = 1
+
+[node name="btn_fullscreen_toggle" type="Button" parent="Content/MarginContainer/OptionMenu/HBoxContainer"]
+
+margin_left = 243.0
+margin_right = 572.0
+margin_bottom = 108.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+toggle_mode = true
+action_mode = 0
+text = "Fullscreen"
+script = SubResource( 10 )
+
+[node name="btn_clear_save" type="Button" parent="Content/MarginContainer/OptionMenu/HBoxContainer"]
+
+margin_left = 672.0
+margin_right = 996.0
+margin_bottom = 108.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+text = "Clear Save"
+
+[node name="btn_option_back" type="Button" parent="Content/MarginContainer/OptionMenu"]
+
+margin_left = 480.0
+margin_top = 645.0
+margin_right = 760.0
+margin_bottom = 753.0
+rect_min_size = Vector2( 280, 0 )
+size_flags_horizontal = 4
+size_flags_vertical = 0
+action_mode = 0
+text = "Back"
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="Content/MarginContainer/OptionMenu"]
+
+stream = ExtResource( 7 )
+bus = "Sound"
+
+[node name="Control3" type="Control" parent="."]
+
+margin_left = 1440.0
+margin_right = 1440.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+
+[node name="ClickSoundPlayer" type="AudioStreamPlayer" parent="."]
+
+stream = ExtResource( 7 )
+bus = "Sound"
+
+[connection signal="timeout" from="Content/Tease/SpawnTimer" to="Content/Tease" method="_on_Timer_timeout"]
+[connection signal="timeout" from="Content/Tease/DespawnTimer" to="Content/Tease" method="_on_DespawnTimer_timeout"]
+[connection signal="timeout" from="Content/Tease/InitTimer" to="Content/Tease" method="_on_InitTimer_timeout"]
+[connection signal="pressed" from="Content/MarginContainer/MainMenu/HBoxContainer/btn_start" to="." method="_on_btn_start_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/MainMenu/HBoxContainer/btn_options" to="." method="_on_btn_options_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/MainMenu/HBoxContainer/btn_manual" to="." method="_on_btn_manual_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/MainMenu/HBoxContainer/btn_credits" to="." method="_on_btn_credits_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/DifficultyMenu/HBoxContainer/btn_easy" to="Content/MarginContainer/DifficultyMenu" method="_on_btn_easy_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/DifficultyMenu/HBoxContainer/btn_normal" to="Content/MarginContainer/DifficultyMenu" method="_on_btn_normal_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/DifficultyMenu/HBoxContainer/btn_hard" to="Content/MarginContainer/DifficultyMenu" method="_on_btn_hard_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/DifficultyMenu/btn_return" to="." method="_on_btn_return_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/GridContainer/btn_master_minus" to="Content/MarginContainer/OptionMenu" method="_on_btn_master_minus_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/GridContainer/btn_master_plus" to="Content/MarginContainer/OptionMenu" method="_on_btn_master_plus_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/GridContainer/btn_music_minus" to="Content/MarginContainer/OptionMenu" method="_on_btn_music_minus_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/GridContainer/btn_music_plus" to="Content/MarginContainer/OptionMenu" method="_on_btn_music_plus_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/GridContainer/btn_sound_minus" to="Content/MarginContainer/OptionMenu" method="_on_btn_sound_minus_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/GridContainer/btn_sound_plus" to="Content/MarginContainer/OptionMenu" method="_on_btn_sound_plus_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/HBoxContainer/btn_fullscreen_toggle" to="Content/MarginContainer/OptionMenu" method="_on_btn_fullscreen_toggle_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/HBoxContainer/btn_clear_save" to="Content/MarginContainer/OptionMenu" method="_on_btn_clear_save_pressed"]
+[connection signal="pressed" from="Content/MarginContainer/OptionMenu/btn_option_back" to="." method="_on_btn_option_back_pressed"]

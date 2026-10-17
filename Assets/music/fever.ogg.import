@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/fever.ogg-6a3d42abb9ab193945fa941644365433.oggstr"
+
+[deps]
+
+source_file="res://Assets/music/fever.ogg"
+dest_files=[ "res://.import/fever.ogg-6a3d42abb9ab193945fa941644365433.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

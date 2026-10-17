@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/screen_door2.mp3-d4aeabc37410f4df378c8a90f5fe08fc.mp3str"
+
+[deps]
+
+source_file="res://Assets/sfx/screen_door2.mp3"
+dest_files=[ "res://.import/screen_door2.mp3-d4aeabc37410f4df378c8a90f5fe08fc.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scenes/UI/Credits.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Assets/font/Bitter-Black.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Assets/font/Bitter-SemiBold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/sfx/click.wav" type="AudioStream" id=4]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends HBoxContainer
+
+func _on_Button_pressed():
+	$Content/Credits.show()
+	$Content/MarginContainer.hide()
+	$AudioStreamPlayer.play()
+"
+
+[sub_resource type="DynamicFont" id=1]
+size = 52
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+extra_spacing_char = -1
+font_data = ExtResource( 3 )
+
+[node name="Afterword" instance=ExtResource( 1 )]
+
+script = SubResource( 3 )
+
+[node name="Content" parent="." index="1"]
+
+size_flags_horizontal = 0
+
+[node name="Credits" parent="Content" index="1"]
+
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Content" index="2"]
+
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 50
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 50
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Content/MarginContainer" index="0"]
+
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 1390.0
+margin_bottom = 1038.0
+custom_constants/separation = 20
+
+[node name="Label" type="Label" parent="Content/MarginContainer/VBoxContainer" index="0"]
+
+margin_right = 1340.0
+margin_bottom = 63.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "Afterword"
+
+[node name="Label2" type="Label" parent="Content/MarginContainer/VBoxContainer" index="1"]
+
+margin_top = 83.0
+margin_right = 1340.0
+margin_bottom = 860.0
+size_flags_vertical = 6
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "This is my Fourth Touhou fan game. This time, I'll be aiming more towards the headpat mechanic. Learning from the mistakes I made from last game, I changed my way of detecting the mouse, and it works like a charm now.
+
+This game is heavily inspired from \"Neko Rumia Nare-Nare\" game which was released for the Touhou Station Jam. It is a game where you pet Rumia to play.
+
+There used to be a mechanic where you can flick Cirno's forehead, and get a bad end. But, I decided to remove that idea because I feel sorry for her...
+
+P.S. Try Pressing the magic number on the keyboard within the first nine seconds of the game.
+
+- FerdysLab"
+align = 3
+autowrap = true
+
+[node name="Button" type="Button" parent="Content/MarginContainer/VBoxContainer" index="2"]
+
+margin_left = 1153.0
+margin_top = 880.0
+margin_right = 1340.0
+margin_bottom = 988.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "next"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = ExtResource( 4 )
+bus = "Sound"
+
+[connection signal="pressed" from="Content/MarginContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
